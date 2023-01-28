@@ -10,7 +10,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int _selectedScreenIndex = 1;
+  int _selectedScreenIndex = 0;
   final List<Map<String, Object>> _screens = [
     {'title': 'Lista de Categorias', 'screen': const CategoriesScreen()},
     {'title': 'Meus Favoritos', 'screen': const FavoriteScreen()},
