@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/components/mean_drawer.dart';
+import 'package:meals_app/components/main_drawer.dart';
 import 'package:meals_app/screens/categories_screen.dart';
 import 'package:meals_app/screens/favorite_screen.dart';
 
