@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/components/main_drawer.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories_screen.dart';
 import 'package:meals_app/screens/favorite_screen.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({super.key});
+  final List<Meal> favoriteMeals;
+  const TabsScreen(this.favoriteMeals, {super.key});
 
   @override
   State<TabsScreen> createState() => _TabsScreenState();
@@ -12,10 +14,19 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedScreenIndex = 0;
-  final List<Map<String, Object>> _screens = [
-    {'title': 'Lista de Categorias', 'screen': const CategoriesScreen()},
-    {'title': 'Meus Favoritos', 'screen': const FavoriteScreen()},
-  ];
+  List<Map<String, Object>>? _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      {'title': 'Lista de Categorias', 'screen': const CategoriesScreen()},
+      {
+        'title': 'Meus Favoritos',
+        'screen': FavoriteScreen(widget.favoriteMeals)
+      }
+    ];
+  }
 
   _selectScreen(int index) {
     setState(() {
@@ -28,26 +39,26 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(_screens[_selectedScreenIndex]['title'] as String),
+        title: Text(_screens![_selectedScreenIndex]['title'] as String),
         // iconTheme: const IconThemeData(color: Colors.blue),
       ),
       drawer: const Drawer(
         child: MainDrawer(),
       ),
-      body: _screens[_selectedScreenIndex]['screen'] as Widget,
+      body: _screens![_selectedScreenIndex]['screen'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectScreen,
         backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
         selectedItemColor: Theme.of(context).colorScheme.secondary,
         currentIndex: _selectedScreenIndex,
-        items: const[
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.category),
             label: "Categorias",
           ),
           BottomNavigationBarItem(
-            icon:  Icon(Icons.stars),
+            icon: Icon(Icons.stars),
             label: "favoritos",
           ),
         ],

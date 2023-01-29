@@ -14,8 +14,10 @@ class MealItem extends StatelessWidget {
     )
         .then((result) {
       if (result == null) {
+        // ignore: avoid_print
         print('Sem resultado');
       } else {
+        // ignore: avoid_print
         print('O nome da refeição é $result');
       }
     });
